@@ -14,5 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^rest-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^rest/', include('rest.urls')),
     url(r'^', include('emails.urls')),
 )
