@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+        ServerName be-mailinator.cloudapp.net
+        ServerAlias be-mailinator.cloudapp.net
+        WSGIScriptAlias / /var/www/mailinator/mailinator.wsgi
+	Alias /static/admin/ "/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/"
+	Alias /static/rest_framework/ "/usr/local/lib/python2.7/dist-packages/rest_framework/static/rest_framework/"
+</VirtualHost>
