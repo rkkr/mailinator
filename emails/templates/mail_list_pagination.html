@@ -1,0 +1,17 @@
+<table width="1000px" border=0>
+  <tr>
+    <td align="right">
+      Page {{ emails.number }} of {{ emails.paginator.num_pages }}
+      {% if emails.has_previous %}
+        <a href="?page={{ emails.previous_page_number }}"> &lt </a>
+      {% else %}
+        &lt
+      {% endif %}
+      {% if emails.has_next %}
+        <a href="?page={{ emails.next_page_number }}"> &gt </a>
+      {% else %}
+        &gt
+      {% endif %}
+    <td>
+  <tr>
+<table>

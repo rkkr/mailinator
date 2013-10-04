@@ -1,0 +1,22 @@
+<h1>Welcome to Mailinator</h1>
+
+{% include "mail_list_pagination.html" %}
+
+<table width="1100px" border=1>
+  <tr>
+    <th width="300px">Sender</th>
+    <th width="300px">Receiver</th>
+    <th width="300px">Title</th>
+    <th width="250px">Time</th>
+  </tr>
+  {% for email in emails %}
+  <tr>
+    <td>{{ email.sender }}</td>
+    <td>{{ email.email }}</td>
+    <td><a href= mail/{{ email.id }}>{{ email.title_clean }}<a></td>
+    <td>{{ email.time_stamp }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% include "mail_list_pagination.html" %}

@@ -1,4 +1,5 @@
 from django.db import models
+import cgi
 
 class User(models.Model):
     email = models.EmailField(max_length=255, unique=True)
@@ -16,3 +17,6 @@ class Message(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def title_clean(self):
+        return cgi.escape(self.title) if self.title else 'No title'
