@@ -7,6 +7,6 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 
 class MessageAdmin(admin.ModelAdmin):
-    fields = ['email', 'title', 'body']
+    fields = ['email', 'title', 'body', 'sender', 'peer']
     list_display = ['email', 'title', 'time_stamp']
 admin.site.register(Message, MessageAdmin)

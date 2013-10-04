@@ -7,9 +7,11 @@ class User(models.Model):
         return self.email
 
 class Message(models.Model):
-    email = models.ForeignKey(User)
+    email = models.ForeignKey(User, related_name='inbox')
+    sender = models.ForeignKey(User, related_name='outbox')
     title = models.CharField(max_length=1024)
     body = models.TextField()
+    peer = models.CharField(max_length=255)
     time_stamp = models.DateTimeField(auto_now = True)
 
     def __unicode__(self):
