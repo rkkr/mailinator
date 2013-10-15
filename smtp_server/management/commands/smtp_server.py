@@ -11,26 +11,26 @@ class Command(BaseCommand):
         asyncore.loop()
 
 
-class CustomSMTPServer(smtpd.SMTPServer):
-    
-    def process_message(self, peer, mailfrom, rcpttos, data):
-        #print 'Receiving message from:', peer
-        #print 'Message addressed from:', mailfrom
-        #print 'Message addressed to  :', rcpttos
-
-        msg = email.message_from_string(data)
-        body = ''
-        if msg.get_content_maintype() == 'multipart':
-            for part in msg.get_payload():
-                if part.get_content_maintype() == 'text':
-                    body = part.get_payload()
+def get_body_text(part, body_str = ''):
+    if part.get_content_maintype() <> 'multipart':
+        return body_str
+    for part in part.get_payload():
+        if part.get_content_maintype() == 'text':
+            return part.get_payload(decode=True)
         else:
-            body = msg.get_payload()
+            body_str += get_body_text(part)
+    return body_str
+
+class CustomSMTPServer(smtpd.SMTPServer):
+
+    def process_message(self, peer, mailfrom, rcpttos, data):
+        msg = email.message_from_string(data)
+        body = get_body_text(msg)
 
         _sender = User.objects.get_or_create(email=mailfrom)[0]
         for rcpt in rcpttos:
-	        _receiver = User.objects.get_or_create(email=rcpt)[0]
-	        Message(email=_receiver, sender=_sender, title=msg['Subject'], body=body, peer=peer).save()
+            _receiver = User.objects.get_or_create(email=rcpt)[0]
+            Message(email=_receiver, sender=_sender, title=msg['Subject'], body=body, peer=peer).save()
 
         return
 
