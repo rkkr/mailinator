@@ -12,13 +12,11 @@ class Command(BaseCommand):
 
 
 def get_body_text(part, body_str = ''):
-    if part.get_content_maintype() <> 'multipart':
-        return body_str
-    for part in part.get_payload():
-        if part.get_content_maintype() == 'text':
-            return part.get_payload(decode=True)
-        else:
-            body_str += get_body_text(part)
+    if part.get_content_maintype() == 'text':
+        return body_str + part.get_payload(decode=True) + '\n'
+    if part.get_content_maintype() == 'multipart':
+        for part in part.get_payload():
+            body_str = get_body_text(part, body_str)
     return body_str
 
 class CustomSMTPServer(smtpd.SMTPServer):
