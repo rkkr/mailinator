@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-import smtpd, asyncore, email
+import smtpd, asyncore, email, platform
 from emails.models import *
 
 
@@ -27,6 +27,8 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
         _sender = User.objects.get_or_create(email=mailfrom)[0]
         for rcpt in rcpttos:
+            if rcpt.split('@')[1].split('.')[0].lower() <> platform.node().lower():
+                continue
             _receiver = User.objects.get_or_create(email=rcpt)[0]
             Message(email=_receiver, sender=_sender, title=msg['Subject'], body=body, peer=peer).save()
 
