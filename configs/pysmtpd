@@ -1,11 +1,13 @@
 #!/bin/bash
-# Copy this file to /etc/ini.d/ and chmod a+x
+# Copy this file to /etc/init.d/ and chmod a+x
+# To make SMTP server run on system start execute: sudo update-rc.d pysmtpd defaults 99 1
+# To disable automatic execution: sudo update-rc.d -f pysmtpd remove
 #
 # Mailinator Python SMTPD startup script
 # USAGE: sudo /etc/init.s/pysmtpd start|stop|restart
 #
 django_folder=/var/www/mailinator/
-pid=/var/run/mailinator_smtpd.pid
+pid=/var/run/pysmtpd.pid
 
 case "$1" in
 start)

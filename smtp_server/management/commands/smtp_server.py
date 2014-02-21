@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-import smtpd, asyncore, email, platform
+import smtpd, asyncore, email, platform, time
 from emails.models import *
 
 
@@ -7,8 +7,12 @@ class Command(BaseCommand):
     help = 'Custom SMTP server daemon'
 
     def handle(self, *args, **options):
-        server = CustomSMTPServer(('0.0.0.0', 25), None)
-        asyncore.loop()
+        while True:
+            try:
+                server = CustomSMTPServer(('0.0.0.0', 25), None)
+                asyncore.loop()
+            except:
+                time.sleep(1)
 
 
 def get_body_text(part, body_str = ''):
