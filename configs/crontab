@@ -1,0 +1,1 @@
+@daily /usr/bin/python /var/www/mailinator/manage.py cleaner
