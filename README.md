@@ -19,6 +19,12 @@ git clone git@github.com:rkkr/mailinator.git
 mysql -u root -p<br />
 CREATE DATABASE dbo;<br />
 exit<br />
+
+# Edit mailinator/settings.py and put your DB password there
+        'USER': 'root',
+        'PASSWORD': 'password',
+
+# Initilize the DB
 /var/www/mailinator/manage.py syncdb<br />
 
 # Add site to apache:
