@@ -24,12 +24,12 @@ exit<br />
         'USER': 'root',
         'PASSWORD': 'password',
 
-# Initilize the DB
+# Initialize the DB
 /var/www/mailinator/manage.py syncdb<br />
 
 # Add site to apache:
 (modify to match current server)<br />
-sudo cp /var/www/mailinator/configs/default /etc/apache2/sites-enabled/000-default<br />
+sudo cp /var/www/mailinator/configs/apache_default /etc/apache2/sites-enabled/000-default<br />
 sudo service apache2 restart<br />
 
 # Add init script for SMTP server:
