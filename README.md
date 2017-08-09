@@ -6,6 +6,7 @@ sudo apt-get install git apache2 python-django python-pip python-mysqldb mysql-s
 
 # REST framework:
 http://www.django-rest-framework.org/#installation<br />
+pip install pymysql
 pip install djangorestframework<br />
 pip install markdown<br />
 pip install django-filter<br />
