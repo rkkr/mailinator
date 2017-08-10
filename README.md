@@ -29,7 +29,7 @@ exit<br />
 
 # Add site to apache:
 (modify to match current server)<br />
-sudo cp /var/www/mailinator/configs/apache_default /etc/apache2/sites-enabled/000-default<br />
+sudo cp /var/www/mailinator/configs/apache_default /etc/apache2/sites-available/000-default<br />
 sudo service apache2 restart<br />
 
 # Add init script for SMTP server:
