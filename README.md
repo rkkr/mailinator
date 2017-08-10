@@ -2,10 +2,11 @@ mailinator
 ==========
 
 # Packages needed: 
-sudo apt-get install git apache2 pyton-django python-mysqldb mysql-server<br />
+sudo apt-get install git apache2 libapache2-mod-wsgi python-django python-pip python-mysqldb mysql-server<br />
 
 # REST framework:
 http://www.django-rest-framework.org/#installation<br />
+pip install pymysql
 pip install djangorestframework<br />
 pip install markdown<br />
 pip install django-filter<br />
@@ -18,11 +19,17 @@ git clone git@github.com:rkkr/mailinator.git
 mysql -u root -p<br />
 CREATE DATABASE dbo;<br />
 exit<br />
+
+# Edit mailinator/settings.py and put your DB password there
+        'USER': 'root',
+        'PASSWORD': 'password',
+
+# Initialize the DB
 /var/www/mailinator/manage.py syncdb<br />
 
 # Add site to apache:
 (modify to match current server)<br />
-sudo cp /var/www/mailinator/configs/default /etc/apache2/sites-enabled/000-default<br />
+sudo cp /var/www/mailinator/configs/apache_default /etc/apache2/sites-available/000-default<br />
 sudo service apache2 restart<br />
 
 # Add init script for SMTP server:
