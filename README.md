@@ -2,7 +2,7 @@ mailinator
 ==========
 
 # Packages needed: 
-sudo apt-get install git apache2 python-django python-pip python-mysqldb mysql-server<br />
+sudo apt-get install git apache2 libapache2-mod-wsgi python-django python-pip python-mysqldb mysql-server<br />
 
 # REST framework:
 http://www.django-rest-framework.org/#installation<br />
