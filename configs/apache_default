@@ -1,5 +1,17 @@
 <VirtualHost *:80>
         WSGIScriptAlias / /var/www/mailinator/mailinator.wsgi
 	Alias /static/admin/ "/usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/"
-	Alias /static/rest_framework/ "/usr/local/lib/python2.7/dist-packages/rest_framework/static/rest_framework/"
+        <Directory /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin/>
+		Options Indexes FollowSymLinks
+		AllowOverride None
+		Require all granted
+        </Directory>
+
+        Alias /static/rest_framework/ "/usr/local/lib/python2.7/dist-packages/rest_framework/static/rest_framework/"
+        <Directory /usr/local/lib/python2.7/dist-packages/rest_framework/static/rest_framework/>
+		Options Indexes FollowSymLinks
+		AllowOverride None
+		Require all granted
+        </Directory>
+
 </VirtualHost>
