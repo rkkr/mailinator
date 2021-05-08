@@ -15,9 +15,9 @@ def mail_list(request):
         emails = paginator.page(1)
     except EmptyPage:
         emails = paginator.page(paginator.num_pages)
-    
+
     template = loader.get_template('mail_list.html')
-    context = Context({'emails': emails, 'paginator': paginator})
+    context = {'emails': emails, 'paginator': paginator}
     return HttpResponse(template.render(context))
 
 def mail_view(request, mail_id):

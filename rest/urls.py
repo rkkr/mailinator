@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from rest_framework import routers
 from rest import views
 
@@ -7,6 +7,6 @@ router.register(r'emails', views.EmailViewSet)
 router.register(r'users', views.UserViewSet)
 
 # Wire up our API using automatic URL routing.
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^', include(router.urls)),
-)
+]
