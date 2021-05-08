@@ -1,0 +1,12 @@
+[Unit]
+Description=Mailinator Python SMTPD startup script
+After=apache2 mysql
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /var/www/mailinator/manage.py smtp_server
+Restart=on-failure
+LimitNOFILE=10000
+
+[Install]
+WantedBy=multi-user.target

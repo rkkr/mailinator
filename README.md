@@ -2,36 +2,59 @@ mailinator
 ==========
 
 # Packages needed: 
-sudo apt-get install git apache2 libapache2-mod-wsgi python-django python-pip python-mysqldb mysql-server<br />
+`sudo apt-get install git apache2 libapache2-mod-wsgi python-django python-pip python-mysqldb mysql-server`
 
 # REST framework:
-http://www.django-rest-framework.org/#installation<br />
-pip install pymysql
-pip install djangorestframework<br />
-pip install markdown<br />
-pip install django-filter<br />
+`pip install pymysql`
+`pip install djangorestframework`
+`pip install markdown`
+`pip install django-filter==1.1`
 
 # Get source:
-cd /var/www/
-git clone git@github.com:rkkr/mailinator.git
+`cd /var/www/`
+`git clone https://github.com/rkkr/mailinator.git`
 
 # Create database:
-mysql -u root -p<br />
-CREATE DATABASE dbo;<br />
-exit<br />
+`mysql -u root -p`
+`CREATE DATABASE dbo;`
+`exit`
 
 # Edit mailinator/settings.py and put your DB password there
         'USER': 'root',
         'PASSWORD': 'password',
 
 # Initialize the DB
-/var/www/mailinator/manage.py syncdb<br />
+`manage.py migrate --run-syncdb`
 
 # Add site to apache:
-(modify to match current server)<br />
-sudo cp /var/www/mailinator/configs/apache_default /etc/apache2/sites-available/000-default<br />
-sudo service apache2 restart<br />
+`sudo cp configs/apache_default.conf /etc/apache2/sites-available/000-default.conf`
+`sudo service apache2 restart`
+
+# Grant apache access to package resources:
+`sudo nano /etc/apache2/apache2.conf`
+Add configuration:
+```
+<Directory /usr/local/lib/python2.7/dist-packages/rest_framework/static/rest_framework/>
+        Options Indexes
+        AllowOverride None
+        Require all granted
+</Directory>
+
+<Directory /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin//>
+        Options Indexes
+        AllowOverride None
+        Require all granted
+</Directory>
+
+```
+`sudo service apache2 restart`
 
 # Add init script for SMTP server:
-sudo cp /var/www/mailinator/configs/pysmtpd /etc/init.d/<br />
-sudo update-rc.d pysmtpd defaults 99 1<br />
+`sudo cp configs/pysmtpd.service /etc/systemd/system/pysmtpd.service`
+`sudo systemctl daemon-reload`
+`sudo systemctl enable pysmtpd`
+`sudo service pysmtpd start`
+
+# Add DB cleanup:
+`crontab -e`
+Add: `@daily /usr/bin/python /var/www/mailinator/manage.py cleaner`
