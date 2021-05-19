@@ -22,4 +22,4 @@ def mail_list(request):
 
 def mail_view(request, mail_id):
     email_body = get_object_or_404(Message, pk=mail_id).body
-    return HttpResponse(cgi.escape(email_body))
+    return HttpResponse(email_body)
